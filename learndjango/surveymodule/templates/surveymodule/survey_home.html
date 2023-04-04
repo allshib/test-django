@@ -1,0 +1,21 @@
+{% extends 'main/layout.html'%}
+
+{% block title %}
+    Главная страница
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+		<h1>Добавление опросов</h1>
+		<p>Пожалуйста, нажмите на кнопку для начала опроса</p>
+		<button class="survey-btn">Начать опрос</button>
+		{% for el in surveys %}
+			<div class="alert alert-warning">
+				<h3>{{ el.title }}</h3>
+				<p>{{ el.is_active }}</p>
+			</div>
+
+		{% endfor %}
+	</div>
+
+{% endblock%}

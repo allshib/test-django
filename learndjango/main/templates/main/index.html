@@ -1,0 +1,43 @@
+{% extends 'main/layout.html'%}
+
+{% block title %}
+    Главная страница
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+		<h1>Добро пожаловать</h1>
+		<p>Пожалуйста, нажмите на кнопку для начала опроса</p>
+		<button class="survey-btn">Начать опрос</button>
+	</div>
+
+	<div class="survey-container">
+			<form>
+				<label for="q1">Question 1: How did you hear about us?</label><br>
+				<input type="radio" id="q1a1" name="q1" value="social-media">
+				<label for="q1a1">Social Media</label><br>
+				<input type="radio" id="q1a2" name="q1" value="search-engine">
+				<label for="q1a2">Search Engine</label><br>
+				<input type="radio" id="q1a3" name="q1" value="word-of-mouth">
+				<label for="q1a3">Word of Mouth</label><br><br>
+
+				<label for="q2">Question 2: How likely are you to recommend us to a friend or colleague?</label><br>
+				<input type="radio" id="q2a1" name="q2" value="likely">
+				<label for="q2a1">Very Likely</label><br>
+				<input type="radio" id="q2a2" name="q2" value="neutral">
+				<label for="q2a2">Neutral</label><br>
+				<input type="radio" id="q2a3" name="q2" value="unlikely">
+				<label for="q2a3">Unlikely</label><br><br>
+
+				<label for="q3">Question 3: How satisfied are you with our product/service?</label><br>
+				<input type="radio" id="q3a1" name="q3" value="very-satisfied">
+				<label for="q3a1">Very Satisfied</label><br>
+				<input type="radio" id="q3a2" name="q3" value="satisfied">
+				<label for="q3a2">Satisfied</label><br>
+				<input type="radio" id="q3a3" name="q3" value="not-satisfied">
+				<label for="q3a3">Not Satisfied</label><br><br>
+
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+{% endblock%}
