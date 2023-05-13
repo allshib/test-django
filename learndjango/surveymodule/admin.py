@@ -4,3 +4,4 @@ from  .models import *
 admin.site.register(Answer)
 admin.site.register(Question)
 admin.site.register(Survey)
+admin.site.register(BinaryChoice)

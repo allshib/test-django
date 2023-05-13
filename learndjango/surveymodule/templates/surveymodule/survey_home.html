@@ -9,13 +9,38 @@
 		<h1>Добавление опросов</h1>
 		<p>Пожалуйста, нажмите на кнопку для начала опроса</p>
 		<button class="survey-btn">Начать опрос</button>
-		{% for el in surveys %}
-			<div class="alert alert-warning">
-				<h3>{{ el.title }}</h3>
-				<p>{{ el.is_active }}</p>
-			</div>
-
-		{% endfor %}
+		<div class="survey-container">
+			<form method="post" action="postsurvey/">
+				{% csrf_token %}
+				{% for question in survey.question_set.all|dictsort:"num" %}
+					<label for="q{{ question.num }}">{{ question.title }}</label><br>
+					{% if question.type_of_question == 0 %}
+						<select id="q{{ question.num }}" name="q{{ question.num }}" class="form-control" required>
+							{% for answer in question.answer_set.all %}
+								<option value="{{answer.related_value}};{{question.json_arr_index}}">{{answer.text}}</option>
+							{% endfor %}
+						</select>
+<!--				<br>-->
+					{% endif %}
+					{% if question.type_of_question == 1 %}
+						<input type="date" id="q{{ question.num }}" name="q{{ question.num }}" value="" class="form-control" required>
+<!--				<br>-->
+					{% endif %}
+					{% if question.type_of_question == 2 %}
+						<input type="text" id="q{{ question.num }}" name="q{{ question.num }}" value="" class="form-control" required>
+<!--				<br>-->
+					{% endif %}
+					{% if question.type_of_question == 3 %}
+						<select id="q{{ question.num }}" name="q{{ question.num }}" class="form-control" required>
+							<option value="{{question.binary_value.false_value}};{{question.json_arr_index}}">{{question.binary_value.false_text}}</option>
+							<option value="{{question.binary_value.true_value}};{{question.json_arr_index}}">{{question.binary_value.true_text}}</option>
+						</select>
+<!--				<br>-->
+					{% endif %}
+				{% endfor %}
+				<input type="submit" value="Send" />
+			</form>
+		</div>
 	</div>
 
 {% endblock%}
