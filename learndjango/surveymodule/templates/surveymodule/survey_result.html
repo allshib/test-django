@@ -1,0 +1,74 @@
+{% extends 'main/layout.html'%}
+
+{% block title %}
+    Результаты опроса
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+		<canvas id = "result_chart" width="100%" height="100%"></canvas>
+	</div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('result_chart');
+        let result = JSON.parse("{{ result }}");
+
+        alert(result)
+
+        if (result != null)
+            new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Инфаркт миокарда', 'Стенокардия стабильная', 'Стенокардия нестабильная', 'Ишемическая болезнь сердца', 'Гипертоническая болезнь', 'Аритмии и блокады сердца', 'Хроническая сердечная недостаточность', 'Ишемическая сердечная недостаточность'],
+      datasets: [{
+        label: 'вероятность заболевания',
+        data: result,
+          backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
+      'rgba(255, 205, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(201, 203, 207, 0.2)',
+      'rgba(201, 203, 207, 0.2)'
+    ],
+    borderColor: [
+      'rgb(255, 99, 132)',
+      'rgb(255, 159, 64)',
+      'rgb(255, 205, 86)',
+      'rgb(75, 192, 192)',
+      'rgb(54, 162, 235)',
+      'rgb(153, 102, 255)',
+      'rgb(201, 203, 207)',
+      'rgb(201, 203, 207)'
+    ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+
+
+        },
+        yAxes: [{
+            ticks: {
+
+                   min: 0,
+                   max: 100,
+                   callback: function(value){return value+ "%"}
+                },
+                                scaleLabel: {
+                   display: true,
+                   labelString: "Percentage"
+                }
+            }],
+      }
+    }
+  });
+
+    </script>
+{% endblock%}

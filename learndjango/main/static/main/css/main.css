@@ -1,15 +1,25 @@
+*{
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /*height: 100vh;*/
 }
 
 .container {
-  max-width: 600px;
+  max-width: 1200px;
+  /*min-width: 80%;*/
+  /*width: 80%;*/
   text-align: center;
+  justify-content: center;
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*margin-top: 155vh;*/
 }
 
 .survey-btn {
@@ -68,4 +78,9 @@ input[type=submit] {
 
 input[type=submit]:hover {
   background-color: #3e8e41;
+}
+.error-message {
+  color: white;
+  background-color: red;
+  padding: 10px;
 }

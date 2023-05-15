@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from .businesslogic.connect_to_kardionet import *
-
+import django
 # Create your views here.
 
 def survey_home(request):
@@ -13,12 +13,18 @@ def survey_home(request):
 
 def postsurvey(request):
 
-    questions = [""] * 30
-    date = request.POST.get("q1")
+    if not request.POST:
+        return render(request, 'surveymodule/empty_result.html')
+
+    questions = ["0"] * 31
+    date = request.POST.get("q1").split('-')
+    date = date[2] + "." + date[1] + "." + date[0]
     questions[0] = request.POST.get("q2")#возраст
     questions[28] = request.POST.get("q4")#рост
     questions[29] = request.POST.get("q5")#вес
+
     print(questions)
+
     for item in request.POST:
         values = request.POST.get(item).split(';')
         print(values)
@@ -26,10 +32,18 @@ def postsurvey(request):
             questions[int(values[1])] = values[0]
 
     print(questions)
-    print(UseProgramNew(CreateDiag(1, date, questions)))
+
+    for i in range(0, len(questions)):
+        questions[i] = GetStringNumber(questions[i])
+
+    print(django.get_version())
+
+    result = GetResultArr(1, date, questions)
+    print(result)
+    # result = [13.28, 6.02, 92.32, 92.32, 10.2, 3.33, 2.14, 6.45]
+
+    return render(request, 'surveymodule/survey_result.html', {'result': result})
 
 
-    surveys = Survey.objects.filter(
-        title='Первая стадия'
-    )
-    return render(request, 'surveymodule/survey_home.html', {'survey': surveys[0]})
+def test_result(request):
+    return render(request, 'surveymodule/survey_result.html')

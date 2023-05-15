@@ -1,14 +1,14 @@
 {% extends 'main/layout.html'%}
 
 {% block title %}
-    Главная страница
+    Опрос
 {% endblock%}
 
 {% block content %}
     <div class="container">
-		<h1>Добавление опросов</h1>
+<!--		<h1>Добавление опросов</h1>
 		<p>Пожалуйста, нажмите на кнопку для начала опроса</p>
-		<button class="survey-btn">Начать опрос</button>
+		<button class="survey-btn">Начать опрос</button>-->
 		<div class="survey-container">
 			<form method="post" action="postsurvey/">
 				{% csrf_token %}
@@ -16,8 +16,9 @@
 					<label for="q{{ question.num }}">{{ question.title }}</label><br>
 					{% if question.type_of_question == 0 %}
 						<select id="q{{ question.num }}" name="q{{ question.num }}" class="form-control" required>
+							<option class="form-control" selected disabled></option>
 							{% for answer in question.answer_set.all %}
-								<option value="{{answer.related_value}};{{question.json_arr_index}}">{{answer.text}}</option>
+								<option class="form-control" value="{{answer.related_value}};{{question.json_arr_index}}">{{answer.text}}</option>
 							{% endfor %}
 						</select>
 <!--				<br>-->
@@ -32,8 +33,9 @@
 					{% endif %}
 					{% if question.type_of_question == 3 %}
 						<select id="q{{ question.num }}" name="q{{ question.num }}" class="form-control" required>
-							<option value="{{question.binary_value.false_value}};{{question.json_arr_index}}">{{question.binary_value.false_text}}</option>
-							<option value="{{question.binary_value.true_value}};{{question.json_arr_index}}">{{question.binary_value.true_text}}</option>
+							<option class="form-control" selected disabled></option>
+							<option class="form-control" value="{{question.binary_value.false_value}};{{question.json_arr_index}}">{{question.binary_value.false_text}}</option>
+							<option class="form-control" value="{{question.binary_value.true_value}};{{question.json_arr_index}}">{{question.binary_value.true_text}}</option>
 						</select>
 <!--				<br>-->
 					{% endif %}
