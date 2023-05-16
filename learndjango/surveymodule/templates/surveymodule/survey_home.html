@@ -10,7 +10,7 @@
 		<p>Пожалуйста, нажмите на кнопку для начала опроса</p>
 		<button class="survey-btn">Начать опрос</button>-->
 		<div class="survey-container">
-			<form method="post" action="postsurvey/">
+			<form method="post" action="postsurvey/SERVER">
 				{% csrf_token %}
 				{% for question in survey.question_set.all|dictsort:"num" %}
 					<label for="q{{ question.num }}">{{ question.title }}</label><br>
