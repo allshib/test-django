@@ -17,7 +17,9 @@ def postsurvey(request, params):
 
     if params == 'SERVER' and not request.POST:
         return render(request, 'surveymodule/empty_result.html')
+    user_notiffication = None
     result = None
+    changes = None
     if params == 'SERVER':
         questions = ["0"] * 31
         date = request.POST.get("q1").split('-')
@@ -44,12 +46,14 @@ def postsurvey(request, params):
         result = GetResultArr(1, date, questions)
         print(result)
     else:
-        result = parseparams(params)
-    # result = [13.28, 6.02, 92.32, 92.32, 10.2, 3.33, 2.14, 6.45]
+        result = ParseURLParams(params)
+        user_notiffication = AnalyzeResultsAndGetNotificationForUser(result)
+        changes = SearchChanges([90.28, 90.02, 20.32, 92.32, 10.2, 3.33, 50.14, 6.45], result)
+    # result = [90.28, 6.02, 92.32, 92.32, 10.2, 3.33, 2.14, 6.45]
     if result == None:
         return render(request, 'surveymodule/empty_result.html')
 
-    return render(request, 'surveymodule/survey_result.html', {'result': result})
+    return render(request, 'surveymodule/survey_result.html', {'result': result, 'notification': user_notiffication})
 
 
 def test_result(request):
